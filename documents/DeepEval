@@ -100,4 +100,4 @@ It is very easy to build custom metrics using DeepEval. They have good documenta
 
 A test case allows you to use evaluation metrics you have defined to unit test LLM applications.
 
-Yuo can integrate evaluations with Pytest.
+You can integrate evaluations with Pytest.
