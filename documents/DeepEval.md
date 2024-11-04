@@ -12,21 +12,25 @@ You can use any LLM to run evaluations.
 
 ### [G-Eval](https://docs.confident-ai.com/docs/metrics-llm-evals)
 
-G-Eval is a framework that uses LLMs with chain-of-thoughts (CoT) to evaluate LLM outputs based on **any** custom criteria. It is the most versatile metric offered by G-Eval.
+G-Eval is a framework that uses LLMs with chain-of-thoughts (CoT) to evaluate LLM outputs based on **any** custom criteria. It is the most versatile metric offered by DeepEval.
 
 As demonstrated in this [paper](https://arxiv.org/abs/2303.16634), it is capable of evaluating almost any use case with human-like accuracy.
 
 As any custom criteria can be evaluated with G-Eval, it may be very useful for this project.
 
-**Should use use this metric?** Yes - this is very versatile, with a methodology backed by a scientific paper.It allows you to pass an input (Our question to the summariser), the actual output, the expected output and the context.
+**Should we use this metric?** Yes - this is very versatile, with a methodology backed by a scientific paper. It allows you to pass an input (Our question to the summariser), the actual output, the expected output and the context.
 
 ### [Summarisation](https://docs.confident-ai.com/docs/metrics-summarization)
 
-The summarization metric uses LLMs to determine whether your LLM (application) is generating factually correct summaries while including the necessary details from the original text. It is less versatile.
+The summarization metric uses LLMs to determine whether your LLM (application) is generating factually correct summaries while including the necessary details from the original text. #Add more explainer
 
-The score is calculated considering the alignment of the returned summary (are there hallucinations or contradicting text) and the coverage score (is all the necessary information from the original text included).
+The score is calculated by taking the lowest value of either the alignment or coverage score. Alignment measures whether the returned summary has any hallucinations or contradicting text, whilst the coverage score measures if all the necessary information from the original text is included.
 
-**Should use use this metric?** Maybe - it is not versatile, but simple to use.
+The coverage calculated by generating `n` questions from the reference text, then for each question, generating a 'yes', 'no' or 'I don't know' answer based on the summary. For alignment, `n` questions are again generated but this time from the summary, and answers are generated based on the original text. An article explaining the method can be found [here](https://www.confident-ai.com/blog/a-step-by-step-guide-to-evaluating-an-llm-text-summarization-task#calculating-alignment-score).
+
+Given up to 10 documents can be used per summary, we may need high `n` values to accurately measure the coverage. We might also always expect coverage to be lower than the alignment score as information will be missed more often than hallucinations occur. For this reason, we may want to split alignment and coverage scores.
+
+**Should use use this metric?** Maybe, this is a good general summary metric. However, given the number of documents which feed into the summary we may wish to split teh alignment and coverage score up, possibly using G-Eval.
 
 ### [Faithfulness](https://docs.confident-ai.com/docs/metrics-faithfulness)
 
@@ -46,7 +50,7 @@ It may be useful to us as we can ask questions with the search feature, and want
 
 ### [Contextual Relevancy](https://docs.confident-ai.com/docs/metrics-contextual-relevancy)
 
-This evaluates the overall relevance of the information presented in your retrieval context for a given input. It considers the total number of relevant statements compared to teh total number of statements.
+This evaluates the overall relevance of the information presented in your retrieval context for a given input. It considers the total number of relevant statements compared to the total number of statements.
 
 **Should use use this metric?** Yes, this is an easy to understand measurement of relevance.
 
@@ -62,13 +66,13 @@ This is similar to precision at K, but this measurement takes into consideration
 
 This measures the quality of your summary by evaluating the extent of which the retrieved context aligns with the expected output.
 
-**Should use use this metric?** No, we have no expected output.
+**Should use use this metric?** Yes. Although whilst this is a useful metric to include, we're limited by having no expected output in this project.
 
 ### [RAGAS](https://docs.confident-ai.com/docs/metrics-ragas)
 
 RAGAS averages across four distinct metrics: Relevancy, Faithfulness, Precision and Recall. However, it needs an expected output.
 
-**Should use use this metric?** No, we have no expected output.
+**Should use use this metric?** NYes. Although whilst this is a useful metric to include, we're limited by having no expected output in this project.
 
 ### [Hallucination](https://docs.confident-ai.com/docs/metrics-hallucination)
 
@@ -76,7 +80,7 @@ This evaluates if your LLM generates factually correct information by comparing 
 
 It considers the number of contradicted statements compared to the total number of statements.
 
-**Should use use this metric?** Yes - although we could implement this ourselves using G-Eval.
+**Should use use this metric?** Yes.
 
 ### [Toxicity](https://docs.confident-ai.com/docs/metrics-toxicity)
 
