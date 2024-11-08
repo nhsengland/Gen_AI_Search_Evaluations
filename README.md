@@ -30,5 +30,15 @@ Within your virtual environment run:
 pip install -r "requirements.txt"
 ```
 
+## Examples
+
+This repository contains example notebooks in the `example_notebooks` folder. These examples implement LLM-as-a-Judge and demonstrate the theory behind LLM-as-a-Judge.
+
+## Augmentation
+
+The `augmentation` folder allows you to apply basic augmentations to prompts such as typos, misspellings and poor punctuation.
+
+This let's you test the quality of summaries using poor quality prompts.
+
 #### Contributors
 - Will Poulett
